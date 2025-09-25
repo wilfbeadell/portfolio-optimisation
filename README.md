@@ -1,31 +1,23 @@
-# Portfolio Optimisation with Modern Portfolio Theory  
+# Efficient Frontier Portfolio Optimization
 
-This project explores portfolio construction using **Modern Portfolio Theory (MPT)**.  
-It compares a simple **equal-weight portfolio** to optimised portfolios:  
-- The **Minimum Variance Portfolio** (lowest risk)  
-- The **Maximum Sharpe Portfolio** (best risk-adjusted return)  
-- The **Efficient Frontier** (set of optimal portfolios for different risk levels)  
+This project implements a basic model for portfolio optimization using the efficient frontier approach.  
+It demonstrates how different portfolio weights can be combined to balance expected return and risk (volatility).
 
----
+## Overview
+The script:
+- Downloads or accepts asset price data
+- Computes daily returns
+- Simulates random portfolios
+- Calculates expected returns and standard deviations
+- Plots the efficient frontier
 
-## 📊 Project Overview  
-1. **Data Collection**  
-   - Daily stock data pulled from Yahoo Finance (`yfinance`)  
-   - Assets chosen from the **FTSE 100** across different sectors for diversification  
+This framework provides a foundation for understanding risk–return trade-offs in portfolio theory.
 
-2. **Portfolio Construction**  
-   - Equal-weight portfolio as a benchmark  
-   - Optimised portfolios using `scipy.optimize.minimize` with constraints:
-     - Weights must sum to 1 (fully invested)  
-     - No short-selling (weights ≥ 0)  
+## Requirements
+- Python 3.8+
+- Packages: `numpy`, `pandas`, `matplotlib`, `scipy`
 
-3. **Analysis**  
-   - Portfolio returns, risk (volatility), and Sharpe ratio  
-   - Visualisation of the **Efficient Frontier** and key portfolios  
-
----
-
-## 🔧 Requirements  
-Install required packages using:  
+Install dependencies with:
 ```bash
-pip install -r requirements.txt
+pip install numpy pandas matplotlib scipy
+
