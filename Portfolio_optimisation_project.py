@@ -25,7 +25,7 @@ print("scipy:", scipy.__version__)
 
 assets = ["HSBA.L", "BP.L", "SHEL.L","AZN.L", "GSK.L","BA.L" ] #FTSE 100
 
-#fetch datafrom yahoo finance - 5 years of data
+# fetch datafrom yahoo finance - 5 years of data
 # gives adjusted prices give correct price returns over time
 
 data = yf.download(assets, start = "2020-01-01", end="2025-01-01")["Close"]
@@ -34,20 +34,11 @@ data = yf.download(assets, start = "2020-01-01", end="2025-01-01")["Close"]
 
 data = data.dropna() # ensure no NaN rows
 returns = data.pct_change().dropna() #takes % change from previous day - decimal
-returns_pct= returns *100
+returns_pct= returns *100 # % returns
 
-'''
-print(data.head()) # first 5 rows
-print(data.tail()) # last 5 rows
-print("Data Shape:", data.shape)  #rows = trading days, cols = stocks
-print("Returns shape:", returns.shape)
-print(returns.head())
-print('Returns Dimensions:', returns.shape)
-print(returns.tail())
-'''
 returns_2024= returns_pct["2024-01-01":"2024-12-31"] #select only for 2024 returns
 returns_Jan_2024 =returns_pct["2024-01-01":"2024-01-31"]
-#returns.index.years gives a numpy array of years for each row-> filter with normal boolean mask
+#returns.index.years gives a numpy array of years for each row
 #returns_pct.index.year==2024 = array([False, False,...True,True...])
 #only rows showing True are shown
 #could also string splice- returns_2024=returns_pct["2024-01-01":"2024-12-31"]
@@ -79,13 +70,13 @@ trading_days= 252
 
 mean_returns = returns.mean()  # average daily return for each stock
 cov_matrix = returns.cov()
-n_assets = len(assets)
-mean_ann = returns.mean() * trading_days #expected annual return per asset
-cov_ann= returns.cov() * trading_days   #annual covariance matrix
+n_assets = len(assets) # no. of assets
+mean_ann = returns.mean() * trading_days # expected annual return per asset
+cov_ann= returns.cov() * trading_days   # annual covariance matrix
 
-w_equal= np.array([1/n_assets]* n_assets)  #equal weighting
+w_equal= np.array([1/n_assets]* n_assets)  # equal weighting
 
-port_return_daily = np.dot(w_equal, mean_returns)  #weighted average of expected annual returns
+port_return_daily = np.dot(w_equal, mean_returns)  # weighted average of expected annual returns
 port_vol = np.sqrt(np.dot(w_equal.T,np.dot(cov_matrix,w_equal))) # standard dev
 port_return_ann = np.dot(w_equal, mean_ann)
 
@@ -101,7 +92,8 @@ print("Expected annual volatility (equal-weight):", round(port_vol,4)) # risk
 
 from scipy.optimize import minimize
 
-rf = 0.02 #assume 2 percent risk free rate
+rf = 0.02
+#assume 2 percent risk free rate
 #helper functions
  
 def portfolio_return(weights):
@@ -163,8 +155,8 @@ def efficient_return(target_return):
         {'type': 'eq', 'fun': lambda w: np.sum(w)-1},  # sum to 1
         {'type': 'eq', 'fun': lambda w: portfolio_return(w) - target_return}
         )   # only consider portfolios with exactly the expected return
-    bounds = tuple((0,1) for i in range(n_assets)) #restrict weights to 0-1
-    result = minimize(portfolio_volatility, #find least risky portfolio under above conditions
+    bounds = tuple((0,1) for i in range(n_assets)) # restrict weights to 0-1
+    result = minimize(portfolio_volatility, # find least risky portfolio under above conditions
                       w_equal,
                       method = 'SLSQP',  # seqeuntial least squares programming
                       bounds=bounds,
@@ -209,4 +201,5 @@ plt.legend()
 plt.show()
 
     
+
     
