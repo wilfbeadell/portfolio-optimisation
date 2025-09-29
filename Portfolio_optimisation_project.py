@@ -12,13 +12,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy
-'''
-print("yfinance:", yf.__version__)
-print("pandas:", pd.__version__)
-print("numpy:", np.__version__)
-print("matplotlib:", matplotlib.__version__)
-print("scipy:", scipy.__version__)
-'''
+
 # choose assets - various sectors
 # chose from FTSE 100 to keep consistent currency, trading hours 
 # with sector diversification
@@ -29,6 +23,7 @@ assets = ["HSBA.L", "BP.L", "SHEL.L","AZN.L", "GSK.L","BA.L" ] #FTSE 100
 # gives adjusted prices give correct price returns over time
 
 data = yf.download(assets, start = "2020-01-01", end="2025-01-01")["Close"]
+
 # ['Adj Close'] pulls out adjusted closing prices (accounting for dividends & stock splits)
 #daily returns
 
@@ -203,3 +198,4 @@ plt.show()
     
 
     
+
