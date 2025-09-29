@@ -183,7 +183,7 @@ plt.plot(frontier_vols, frontier_returns, 'g--', label= 'Efficient Frontier')
 
 plt.scatter(port_vol, port_return_ann, c='blue', marker='o', label= 'equal weight')
 plt.scatter(portfolio_volatility(w_minvar), portfolio_return(w_minvar),
-            c='red', marker='o', label=' minimum variance')
+            c='red', marker='o', label='minimum variance')
 plt.scatter(portfolio_volatility(w_maxsharpe), portfolio_return(w_maxsharpe),
             c='gold', marker='*', s=200, label = 'Max Sharpe')
 
@@ -198,4 +198,5 @@ plt.show()
     
 
     
+
 
